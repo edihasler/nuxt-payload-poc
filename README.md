@@ -1,75 +1,27 @@
-# Nuxt Minimal Starter
+# nuxt-payload-poc
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Proof-of-concept demonstrating a technique to keep server-only component data out of the nuxt-payload (NUXT_DATA).
 
-## Setup
+## Problem
 
-Make sure to install dependencies:
+Nuxt does not provide a built-in fetch option or a way to mark a component as `server-only` such that its server-side data is omitted from the nuxt-payload. This can leak large data, increase payload size and be critical for SEO.
 
-```bash
-# npm
-npm install
+## Solution?
 
-# pnpm
-pnpm install
+Key idea: mark data that should never be hydrated with a `hydrateNever` flag. Before sending the payload to the client, call the provided helper to remove full server-only data from the nuxt payload.
 
-# yarn
-yarn install
+## Notes
 
-# bun
-bun install
-```
+- This is a proof-of-concept and assumes you control the payload shape and can mark server-only blocks with `hydrateNever`.
 
-## Development Server
+## Links
 
-Start the development server on `http://localhost:3000`:
+https://nuxt.com/docs/4.x/directory-structure/app/components#server-components
+https://nuxt.com/docs/4.x/api/components/nuxt-island
 
-```bash
-# npm
-npm run dev
+https://github.com/nuxt/nuxt/issues/24175
+https://github.com/nuxt/nuxt/issues/33019
 
-# pnpm
-pnpm dev
+https://github.com/TYPO3-Headless/nuxt-typo3/issues/353
 
-# yarn
-yarn dev
-
-# bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+https://github.com/vercel/next.js/issues/40143

@@ -8,6 +8,8 @@ export function getBlockComponent(
       return undefined;
     }),
     // https://github.com/nuxt/nuxt/blob/2a9122195823403381294ff49019e53fb4d47662/packages/nuxt/src/components/runtime/lazy-hydrated-component.ts#L105-L114
+    // https://nuxt.com/docs/4.x/directory-structure/app/components#hydrate-never
+    // to avoid hydration errors
     hydrate: hydrateNever ? () => { } : undefined,
   });
 

@@ -14,6 +14,7 @@ const { data } = await useAsyncData<any>(
 );
 
 if (import.meta.server) {
+    // server-side using the unstripped data to create the html
     data.value = fullData.value;
 }
 </script>
